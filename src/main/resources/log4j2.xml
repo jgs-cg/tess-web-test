@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--      <replace regex = ".*value.*" replacement = "&quot;password&quot; : &quot;[PROTECTED]&quot;" />-->
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %replace{ %replace{%msg}{.*password.*}{&quot;password&quot; : &quot;[PROTECTED]&quot;}}{&quot;value.*}{&quot;value&quot; : &quot;[PROTECTED]&quot;}%n"/>
+        </Console>
+        <!-- File Appender -->
+        <File fileName="logs/mylogfile.log" name="File">
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %replace{ %replace{%msg}{.*password.*}{&quot;password&quot; : &quot;[PROTECTED]&quot;}}{&quot;value.*}{&quot;value&quot; : &quot;[PROTECTED]&quot;}%n"/>
+        </File>
+
+    </Appenders>
+
+    <Loggers>
+        <!-- Log everything in custom package -->
+        <Logger additivity="false" level="${logging.level.root}" name="com.capgroup.po">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="File"/>
+        </Logger>
+
+        <!-- Log everything in Spring Boot -->
+        <Logger additivity="false" level="${logging.level.root}" name="org.springframework">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="File" />
+        </Logger>
+
+        <Root level="ERROR, DEBUG">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="File" />
+        </Root>
+
+    </Loggers>
+</Configuration>
