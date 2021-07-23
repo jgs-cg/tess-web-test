@@ -1,1 +1,49 @@
+version: 0.2
 
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+      java: corretto8
+  pre_build:
+    commands:
+      - aws --version
+      - npm install -g aws-cdk
+      - cdk --version
+      - npm install -g yarn
+      - yarn version
+     # - REPOSITORY_URI=315912068911.dkr.ecr.us-west-2.amazonaws.com/tess-web
+     # - IMAGE_NAME = SeleniumTest
+     # - IMAGE_TAG=latest
+     # - echo Repo URI var is $REPOSITORY_URI
+     # - echo Logging in to Amazon ECR...
+     # - aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin $REPOSITORY_URI
+
+    # - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
+     # - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+     # - npm --version
+     # - ls -l
+    #  - pwd
+
+  build:
+    commands:
+      #commands compile source code
+      - mvn test 
+      - echo Build started on `date` 
+     # - docker build -t $REPOSITORY_URI:$IMAGE_NAME .
+     # - docker tag $REPOSITORY_URI:$IMAGE_NAME $REPOSITORY_URI:$IMAGE_TAG
+
+      
+  post_build:
+    commands:
+      - echo Build completed on `date`
+     # - docker images
+     # - docker push $REPOSITORY_URI:$IMAGE_NAME:$IMAGE_TAG
+      #- docker push $REPOSITORY_URI:$IMAGE_TAG
+    #  - echo Writing image definitions file...
+     # - printf '[{"name":"fargate-tess-web-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+     # - 315912068911.dkr.ecr.us-west-2.amazonaws.com/tess-web:latest
+artifacts:
+  #files: imagedefinitions.json
+   # - '**/*'
+ # base-directory: 'dist'
