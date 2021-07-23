@@ -1,0 +1,4 @@
+spring:
+  profiles: DEV
+web:
+  tess-site-url: https://tess.capgroup.com//
