@@ -28,7 +28,8 @@ phases:
   build:
     commands:
       #commands compile source code
-      - mvn test 
+      - echo Running maven commaned to execute tests
+      - mvn clean test 
       - echo Build started on `date` 
      # - docker build -t $REPOSITORY_URI:$IMAGE_NAME .
      # - docker tag $REPOSITORY_URI:$IMAGE_NAME $REPOSITORY_URI:$IMAGE_TAG
