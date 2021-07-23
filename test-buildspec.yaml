@@ -43,7 +43,7 @@ phases:
     #  - echo Writing image definitions file...
      # - printf '[{"name":"fargate-tess-web-container","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
      # - 315912068911.dkr.ecr.us-west-2.amazonaws.com/tess-web:latest
-artifacts:
+#artifacts:
   #files: imagedefinitions.json
    # - '**/*'
  # base-directory: 'dist'
