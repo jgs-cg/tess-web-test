@@ -11,7 +11,7 @@ phases:
       - npm install -g aws-cdk
       - cdk --version
       - npm install -g yarn
-      - yarn version
+      - yarn --version
      # - REPOSITORY_URI=315912068911.dkr.ecr.us-west-2.amazonaws.com/tess-web
      # - IMAGE_NAME = SeleniumTest
      # - IMAGE_TAG=latest
