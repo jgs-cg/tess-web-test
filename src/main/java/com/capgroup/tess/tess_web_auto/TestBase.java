@@ -18,7 +18,10 @@ public class TestBase {
     public void setUp(String browser) {
         if(browser.equals("local_chrome")) {
             logger.info("This will run before the Scenario: " + browser);
+        if(SystemUtils.OS_NAME.toLowerCase(Locale.ROOT).contains("windows"))
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+        else
+            System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
             driver = new ChromeDriver();
         }
     }
