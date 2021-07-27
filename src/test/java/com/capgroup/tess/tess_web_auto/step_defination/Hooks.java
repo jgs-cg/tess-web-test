@@ -2,7 +2,6 @@ package com.capgroup.tess.tess_web_auto.step_defination;
 
 import com.capgroup.tess.tess_web_auto.config.SpringConfig;
 import io.cucumber.java8.En;
-import org.apache.commons.lang.SystemUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -10,8 +9,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-
-import java.util.Locale;
 
 
 @SpringBootTest(classes = SpringBootTest.class)
@@ -34,7 +31,7 @@ public class Hooks extends BasicSteps implements En {
         caps.setCapability("record_network", recordNetwork);
 
 
-        if(SystemUtils.OS_NAME.toLowerCase().contains("windows"))
+        if(System.getProperty("os.name").toLowerCase().contains("windows"))
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         else
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
