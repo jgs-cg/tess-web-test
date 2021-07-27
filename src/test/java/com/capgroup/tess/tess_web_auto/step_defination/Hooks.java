@@ -31,7 +31,10 @@ public class Hooks extends BasicSteps implements En {
         caps.setCapability("record_network", recordNetwork);
 
 
-        System.setProperty("webdriver.chrome.driver", "C:/Users/jgs/Downloads/tess-web-auto/drivers/chromedriver.exe");
+        if(SystemUtils.OS_NAME.toLowerCase(Locale.ROOT).contains("windows"))
+            System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
+        else
+            System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("start-maximized");
