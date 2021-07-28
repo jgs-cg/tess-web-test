@@ -12,6 +12,7 @@ phases:
       - cdk --version
       - npm install -g yarn
       - yarn --version
+      - yum install -y google-chrome-stable
   build:
     commands:
       #commands compile source code
