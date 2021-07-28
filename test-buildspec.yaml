@@ -16,7 +16,7 @@ phases:
     commands:
       #commands compile source code
       - echo Running maven commaned to execute tests
-      - mvn clean test 
+      - mvn clean test -Dspring.profiles.active=DEV
       - echo Build started on `date` 
 
 
