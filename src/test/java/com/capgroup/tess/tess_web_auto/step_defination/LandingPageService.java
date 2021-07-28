@@ -81,14 +81,17 @@ public class LandingPageService implements En {
             if(onConfluence.equalsIgnoreCase("true"))
             {
                 ArrayList<String> windowTabs = new ArrayList<String> (driver.getWindowHandles());
+                logger.info("Number of windows tables equals : " + windowTabs.size());
                 driver.switchTo().window(windowTabs.get(1));
+
                 landingPage.getConfluenceLink();
             }
             else
                 expectedURL = baseUrl+  expectedURL;
 
             actualURL = landingPage.getCurrentUrl();
-
+            logger.info("expected result is : " + expectedURL);
+            logger.info("actual result is : " + actualURL);
             Assert.assertEquals(actualURL,expectedURL,"ExpectedURL doesn't match the ActualURL");
         });
 

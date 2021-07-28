@@ -55,7 +55,7 @@ public class LandingPage extends PageBase {
 
     public WebElement getBestPracticesTile() {return waitWebElementToBeVisible(bestPracticesTile); }
 
-    public WebElement getConfluenceLink() { waitWebElementToBeVisible(confluenceElement);  return waitWebElementToBeClickable(confluenceElement);}
+    public WebElement getConfluenceLink() { return waitWebElementToBeVisible(confluenceElement); }
 
 
 
