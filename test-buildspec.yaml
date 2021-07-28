@@ -12,7 +12,8 @@ phases:
       - cdk --version
       - npm install -g yarn
       - yarn --version
-      - yum install -y google-chrome-stable
+      - pip install --upgrade pip
+      
   build:
     commands:
       #commands compile source code
