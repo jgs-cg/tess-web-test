@@ -18,8 +18,8 @@ phases:
       - echo Running maven commaned to execute tests
       - cd drivers
       - pwd
-      - sudo chmod 777 chromedriver
-      - sudo chmod +x chromedriver
+      - chmod 777 chromedriver
+      - chmod +x chromedriver
       - cd ..
       - pwd
       - mvn clean test -Dspring.profiles.active=DEV
