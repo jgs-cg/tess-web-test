@@ -27,7 +27,7 @@ public class PageBase {
     private static final Logger logger = LogManager.getLogger();
     protected final WebDriver driver;
 
-    @FindBy(xpath = "//*[@id=\"editPageLink\"]")
+    @FindBy(xpath = "//*[@id=\"logo\"]/a/span")
     public WebElement confluenceElement;
 
     public PageBase(WebDriver driver) {
