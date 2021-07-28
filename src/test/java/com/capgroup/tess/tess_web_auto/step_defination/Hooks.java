@@ -37,8 +37,16 @@ public class Hooks extends BasicSteps implements En {
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
 
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless");
+        options.addArguments("window-size=1400,1500");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
         options.addArguments("start-maximized");
-        options.addArguments("disable-impl-side-painting");
+        options.addArguments("enable-automation");
+        options.addArguments("--disable-infobars");
+        options.addArguments("--disable-dev-shm-usage");
+        //options.addArguments("start-maximized");
+        //options.addArguments("disable-impl-side-painting");
         RemoteWebDriver driver = new ChromeDriver(options);
 
         driver.get(url);
