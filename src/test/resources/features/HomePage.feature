@@ -12,7 +12,7 @@
         | Services   | true | https://confluence.capgroup.com/pages/viewpage.action?spaceKey=TAUTO&title=Getting+started+with+Test+Automation|
         | CICD   |  true   | https://confluence.capgroup.com/pages/viewpage.action?pageId=344778875|
         | qTest   |   true | https://confluence.capgroup.com/pages/viewpage.action?spaceKey=TAUTO&title=qTest+Test+Automation+integration+via+Pulse|
-        | Frameworks   | false | https://tess.capgroup.com/reference|
-        | Implementations   |false | https://tess.capgroup.com/reference|
+        | Frameworks   | false | /reference|
+        | Implementations   |false | /reference|
         | BestPractices   | true | https://confluence.capgroup.com/pages/viewpage.action?spaceKey=TAUTO&title=Test+Automation+Best+Practices|
 

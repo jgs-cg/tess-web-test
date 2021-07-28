@@ -1,4 +1,4 @@
 spring:
   profiles: DEV
 web:
-  tess-site-url: https://tess.capgroup.com//
+  tess-site-url: http://fargate.tess.aws-dev.capgroup.com

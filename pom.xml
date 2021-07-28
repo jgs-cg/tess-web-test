@@ -227,7 +227,7 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>5.0.0</version>
+                <version>5.3.0</version>
                 <executions>
                     <execution>
                         <id>execution</id>
@@ -236,7 +236,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <projectName>tess-web-auto</projectName>
+                            <projectName>tess-web-test</projectName>
                             <outputDirectory>${project.build.directory}/cucumber-reports/adv/out</outputDirectory>
                             <inputDirectory>${project.build.directory}/cucumber-reports/adv</inputDirectory>
                             <jsonFiles>

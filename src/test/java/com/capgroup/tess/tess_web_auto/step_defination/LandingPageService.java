@@ -1,24 +1,29 @@
 package com.capgroup.tess.tess_web_auto.step_defination;
 
+import com.capgroup.tess.tess_web_auto.config.SpringConfig;
 import com.capgroup.tess.tess_web_auto.pageobjects.LandingPage;
 import io.cucumber.java8.En;
 
+import io.cucumber.spring.CucumberContextConfiguration;
+import io.cucumber.spring.CucumberTestContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Scope;
 import org.testng.Assert;
-import com.capgroup.tess.tess_web_auto.PageBase;
-
 import java.util.ArrayList;
-import java.util.Locale;
 
 
+@CucumberContextConfiguration
+@Scope(CucumberTestContext.SCOPE_CUCUMBER_GLUE)
+@SpringBootTest(classes = SpringConfig.class)
 public class LandingPageService implements En {
     private static final Logger logger = LogManager.getLogger();
 
-    //@Value(value = "${web.tess-site-url}")
-    private String baseUrl = "https://tess.capgroup.com//";
+    @Value("${web.tess-site-url}")
+    public String baseUrl;
     private Hooks hooks;
     private final String browser="local_chrome";
 
@@ -40,6 +45,8 @@ public class LandingPageService implements En {
             logger.info("Closing the driver after feature run");
             driver.quit();
         });
+
+
 
         Given("^I click on \"([^\"]*)\" tile from tess website home page$", (String tile) -> {
             logger.info("Executing Given Expression with tile: "+tile);
@@ -68,17 +75,20 @@ public class LandingPageService implements En {
 
         });
 
-        Then("^I validate the tile nagivates me to the correct confluence page url \"([^\"]*)\"$", (String expectedURL) -> {
-
-        });
         Then("^I validate the tile nagivates me to the correct confluence \"([^\"]*)\" page url \"([^\"]*)\"$", ( String onConfluence,String expectedURL) -> {
             logger.info("Executing the Then Expression with expectedURL" + expectedURL);
+            String actualURL;
             if(onConfluence.equalsIgnoreCase("true"))
             {
                 ArrayList<String> windowTabs = new ArrayList<String> (driver.getWindowHandles());
                 driver.switchTo().window(windowTabs.get(1));
+                landingPage.getConfluenceLink();
             }
-            String actualURL = landingPage.getCurrentUrl();
+            else
+                expectedURL = baseUrl+  expectedURL;
+
+            actualURL = landingPage.getCurrentUrl();
+
             Assert.assertEquals(actualURL,expectedURL,"ExpectedURL doesn't match the ActualURL");
         });
 

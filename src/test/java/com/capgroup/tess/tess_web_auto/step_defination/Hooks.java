@@ -11,8 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 
-@SpringBootTest(classes = SpringBootTest.class)
-@ContextConfiguration(classes = SpringConfig.class)
+//@SpringBootTest(classes = SpringBootTest.class)
+//@ContextConfiguration(classes = SpringConfig.class)
 public class Hooks extends BasicSteps implements En {
 
     public WebDriver getDriver(String browser, String url) {
