@@ -30,7 +30,7 @@ public class Hooks extends BasicSteps implements En {
         caps.setCapability("record_video", needVideo);
         caps.setCapability("record_network", recordNetwork);
 
-
+        System.out.println("OS property value is " +System.getProperty("os.name").toLowerCase());
         if(System.getProperty("os.name").toLowerCase().contains("windows"))
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         else

@@ -16,8 +16,10 @@ public class TestBase {
     @Parameters({"browser"})
     @BeforeClass
     public void setUp(String browser) {
+        System.out.println("OS property value is " +System.getProperty("os.name").toLowerCase());
         if(browser.equals("local_chrome")) {
             logger.info("This will run before the Scenario: " + browser);
+
         if(System.getProperty("os.name").toLowerCase().contains("windows"))
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         else
