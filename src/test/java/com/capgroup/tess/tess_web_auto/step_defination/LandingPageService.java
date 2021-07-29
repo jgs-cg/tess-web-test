@@ -93,7 +93,7 @@ public class LandingPageService implements En {
             actualURL = landingPage.getCurrentUrl();
             logger.info("expected result is : " + expectedURL);
             logger.info("actual result is : " + actualURL);
-            Assert.assertEquals(actualURL,expectedURL,"ExpectedURL doesn't match the ActualURL");
+            Assert.assertTrue(actualURL.contains(expectedURL),"ExpectedURL doesn't match the ActualURL");
         });
 
     }
