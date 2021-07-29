@@ -33,11 +33,11 @@ phases:
     commands:
       - echo Build completed on `date`
       
-  reports:   
-    tessweb-ReportGroup: #Cucumber reports from json plugin
-      files:
+reports:   
+  tessweb-ReportGroup: #Cucumber reports from json plugin
+    files:
         - 'cucumber-reports/adv/cucumber-json-testng-report.json'
-      file-format: CUCUMBERJSON #Type of the report, defaults to JUNITXML
+    file-format: CUCUMBERJSON #Type of the report, defaults to JUNITXML
 
 #artifacts:
   #files: imagedefinitions.json
