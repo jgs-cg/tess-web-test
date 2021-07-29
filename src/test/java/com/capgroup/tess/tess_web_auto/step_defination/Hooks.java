@@ -45,10 +45,7 @@ public class Hooks extends BasicSteps implements En {
         options.addArguments("enable-automation");
         options.addArguments("--disable-infobars");
         options.addArguments("--disable-dev-shm-usage");
-        //options.addArguments("start-maximized");
-        //options.addArguments("disable-impl-side-painting");
         RemoteWebDriver driver = new ChromeDriver(options);
-
         driver.get(url);
         return driver;
     }
