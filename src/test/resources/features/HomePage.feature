@@ -9,10 +9,10 @@
 
       Examples:
         | tile | onConfluence | url |
-        | Services   | true | TAUTO&title=Getting+started+with+Test+Automation|
+        | Services   | true | Getting+started+with+Test+Automation|
         | CICD   |  true   | https://confluence.capgroup.com/pages/viewpage.action?pageId=344778875|
-        | qTest   |   true | TAUTO&title=qTest+Test+Automation+integration+via+Pulse|
+        | qTest   |   true | qTest+Test+Automation+integration+via+Pulse|
         | Frameworks   | false | /reference|
         | Implementations   |false | /reference|
-        | BestPractices   | true | TAUTO&title=Test+Automation+Best+Practices|
+        | BestPractices   | true | Test+Automation+Best+Practices|
 
