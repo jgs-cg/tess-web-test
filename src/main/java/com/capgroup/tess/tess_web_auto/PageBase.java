@@ -18,8 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 import java.util.List;
-
-
+import java.util.concurrent.TimeUnit;
 
 
 public class PageBase {
@@ -61,6 +60,7 @@ public class PageBase {
     public String getCurrentUrl()
     {
         waitTillPageHasBeenFullyLoaded();
+        driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
         return driver.getCurrentUrl();
     }
 

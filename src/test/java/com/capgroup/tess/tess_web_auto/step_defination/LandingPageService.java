@@ -89,6 +89,7 @@ public class LandingPageService implements En {
             else
                 expectedURL = baseUrl+  expectedURL;
 
+
             actualURL = landingPage.getCurrentUrl();
             logger.info("expected result is : " + expectedURL);
             logger.info("actual result is : " + actualURL);
