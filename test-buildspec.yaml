@@ -22,7 +22,7 @@ phases:
      # - pwd
       - chmod 777 chromedriver
       - chmod +x chromedriver
-      #- cd ..
+      - cd ..
      # - pwd
       - mvn clean test -Dspring.profiles.active=DEV
       - echo Build started on `date` 
