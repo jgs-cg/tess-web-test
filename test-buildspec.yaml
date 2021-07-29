@@ -10,20 +10,20 @@ phases:
       - aws --version
       - npm install -g aws-cdk
       - cdk --version
-      - npm install -g yarn
-      - yarn --version
-      - pip install --upgrade pip
+      #- npm install -g yarn
+     # - yarn --version
+      #- pip install --upgrade pip
       
   build:
     commands:
       #commands compile source code
       - echo Running maven commaned to execute tests
       - cd drivers
-      - pwd
+     # - pwd
       - chmod 777 chromedriver
       - chmod +x chromedriver
-      - cd ..
-      - pwd
+      #- cd ..
+     # - pwd
       - mvn clean test -Dspring.profiles.active=DEV
       - echo Build started on `date` 
 
@@ -32,6 +32,12 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date`
+      
+  reports:   
+    tessweb-ReportGroup: #Cucumber reports from json plugin
+      files:
+        - 'cucumber-reports/adv/cucumber-json-testng-report.json'
+      file-format: CUCUMBERJSON #Type of the report, defaults to JUNITXML
 
 #artifacts:
   #files: imagedefinitions.json
