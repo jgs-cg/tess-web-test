@@ -84,7 +84,7 @@ public class LandingPageService implements En {
                 logger.info("Number of windows tables equals : " + windowTabs.size());
                 driver.switchTo().window(windowTabs.get(1));
 
-                landingPage.getConfluenceLink();
+                //landingPage.getConfluenceLink();
             }
             else
                 expectedURL = baseUrl+  expectedURL;

@@ -33,6 +33,9 @@ public class LandingPage extends PageBase {
     @FindBy(xpath = "//div[contains(@class,'white--text') and contains(text(),'Home')]")
     private WebElement homeButton;
 
+    @FindBy(xpath = "//*[@id=\"logo\"]/a/span")
+    public WebElement confluenceElement;
+
 
 
     public WebElement getHomeButton() {return waitWebElementToBeVisible(homeButton); }
