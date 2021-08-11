@@ -7,6 +7,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -15,13 +18,14 @@ import org.springframework.test.context.ContextConfiguration;
 //@ContextConfiguration(classes = SpringConfig.class)
 public class Hooks extends BasicSteps implements En {
 
-    public WebDriver getDriver(String browser, String url) {
+    public WebDriver getDriver(String browser, String url) throws MalformedURLException {
 
 
         DesiredCapabilities caps = new DesiredCapabilities();
         String needVideo = System.getProperty("video", "true");
         String recordNetwork = System.getProperty("network", "false");
-
+        //String nodeURL = "http://x376836:4444/wd/hub";
+        String nodeURL = "http://localhost:4444/wd/hub";
         logger.info(browser);
         browser_name = browser;
 
@@ -45,7 +49,8 @@ public class Hooks extends BasicSteps implements En {
         options.addArguments("enable-automation");
         options.addArguments("--disable-infobars");
         options.addArguments("--disable-dev-shm-usage");
-        RemoteWebDriver driver = new ChromeDriver(options);
+        //RemoteWebDriver driver = new ChromeDriver(options);
+        driver = new RemoteWebDriver(new URL(nodeURL),options);
         driver.get(url);
         return driver;
     }
