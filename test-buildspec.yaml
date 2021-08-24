@@ -1,15 +1,33 @@
 version: 0.2
 
+env:
+  variables: #Parameters related to the Test Runner and for the Project to parse jSON report to qTest
+    REGION1: "us-west-2"
+    environment: "DEV"
+    contactInitials: "JGS"
+    requestedParser: "Cucumber_V2"
+    cycleId: "182085"
+    BuildNum: $CODEBUILD_BUILD_NUMBER
+    atmId: "AA00001364"
+    aut: "TESS"
+    projectId: "124"
+    reportFilePath: "target/cucumber-reports/adv"
+    reportFileName: "TESS-website-results.json"
+    testName: "RunAPITest"
+
 phases:
   install:
     runtime-versions:
       nodejs: 12
       java: corretto8
+      python: 3.9
   pre_build:
     commands:
       - aws --version
       - npm install -g aws-cdk
       - cdk --version
+      - pip install --upgrade pip
+      - pip install requests
       #- npm install -g yarn
      # - yarn --version
       #- pip install --upgrade pip
