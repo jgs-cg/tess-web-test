@@ -26,7 +26,8 @@ payload = {"result": data ,
            "requestedParser" : requestedParser,
            "jobUrl" : "jobUrl",
            "contactInitials" : contactInitials,
-           "modulePath": env
+           "modulePath": env,
+           "url": "https://qtest.cguser.capgroup.com:4080/webhook/ad6396c2-c0ca-4123-860a-681f47b56af1"
            }
 
 headerInfo = {'Content-Type' : 'application/json'}
