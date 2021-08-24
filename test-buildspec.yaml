@@ -49,7 +49,7 @@ phases:
     on-failure: CONTINUE
     commands:
       - echo Run Python script to upload report to qTest
-      - python uploadscript.py         
+      - python uploadResultsQtest.py         
       
 reports:   
   tessweb-ReportGroup: #Cucumber reports from json plugin
