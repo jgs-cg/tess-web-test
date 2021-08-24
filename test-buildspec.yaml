@@ -11,8 +11,8 @@ env:
     atmId: "AA00001364"
     aut: "TESS"
     projectId: "124"
-    reportFilePath: "target/cucumber-reports/adv"
-    reportFileName: "TESS-website-results.json"
+    reportFilePath: "target/cucumber-reports/adv/cucumber-json-testng-report.json"
+    reportFileName: "cucumber-json-testng-report.json"
     testName: "RunAPITest"
 
 phases:
