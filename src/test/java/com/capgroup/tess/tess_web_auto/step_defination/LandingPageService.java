@@ -55,7 +55,6 @@ public class LandingPageService implements En {
                 case "services":
                     landingPage.clickServicesTile();
                     break;
-
                 case "cicd":
                     landingPage.clickCicdTile();
                     break;

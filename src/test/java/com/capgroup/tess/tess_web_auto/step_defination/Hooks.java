@@ -5,6 +5,7 @@ import io.cucumber.java8.En;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -25,16 +26,18 @@ public class Hooks extends BasicSteps implements En {
         String needVideo = System.getProperty("video", "true");
         String recordNetwork = System.getProperty("network", "false");
         //String nodeURL = "http://x376836:4444/wd/hub";
-        String nodeURL = "http://localhost:4444/wd/hub";
+        //String nodeURL = "http://selenium-grid.tess.aws-dev.capgroup.com:4444/wd/hub";
         logger.info(browser);
         browser_name = browser;
 
-        caps.setCapability("name", scenarioName + " for " + browser);
-        caps.setCapability("build", "3.0");
-        caps.setCapability("record_video", needVideo);
-        caps.setCapability("record_network", recordNetwork);
+        //caps.setCapability("name", scenarioName + " for " + browser);
+       // caps.setCapability("build", "3.0");
+        //caps.setCapability("record_video", needVideo);
+        //caps.setCapability("record_network", recordNetwork);
+        caps.setBrowserName("chrome");
+        //caps.setCapability(CapabilityType.BROWSER_NAME,"chrome");
 
-        logger.info("OS property value is " +System.getProperty("os.name").toLowerCase());
+        //logger.info("OS property value is " +System.getProperty("os.name").toLowerCase());
         if(System.getProperty("os.name").toLowerCase().contains("windows"))
             System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         else
@@ -49,8 +52,8 @@ public class Hooks extends BasicSteps implements En {
         options.addArguments("enable-automation");
         options.addArguments("--disable-infobars");
         options.addArguments("--disable-dev-shm-usage");
-        //RemoteWebDriver driver = new ChromeDriver(options);
-        driver = new RemoteWebDriver(new URL(nodeURL),options);
+        RemoteWebDriver driver = new ChromeDriver(options);
+        //driver = new RemoteWebDriver(new URL(nodeURL),caps);
         driver.get(url);
         return driver;
     }
