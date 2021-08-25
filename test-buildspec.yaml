@@ -11,7 +11,7 @@ env:
     atmId: "AA00001364"
     aut: "TESS"
     projectId: "54"
-    reportFilePath: "target/cucumber-reports/adv/"
+    reportFilePath: "target/cucumber-reports/adv"
     reportFileName: "cucumber-json-testng-report.json"
     testName: "RunAPITest"
 
@@ -39,7 +39,7 @@ phases:
       - chmod +x chromedriver
       - cd ..
       - echo Build started on `date` 
-      - docker-compose -f  docker-compose.yml up -d
+     # - docker-compose -f  docker-compose.yml up -d
       - mvn clean test -Dspring.profiles.active=DEV
       #- docker-compose -f  docker-compose.yml down -d
 
