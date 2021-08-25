@@ -41,7 +41,7 @@ phases:
       - echo Build started on `date` 
       - docker-compose -f  docker-compose.yml up -d
       - mvn clean test -Dspring.profiles.active=DEV
-      - docker-compose -f  docker-compose.yml down -d
+      #- docker-compose -f  docker-compose.yml down -d
 
 
       
