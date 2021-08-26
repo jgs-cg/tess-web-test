@@ -13,7 +13,7 @@ env:
     projectId: "54"
     reportFilePath: "target/cucumber-reports/adv"
     reportFileName: "cucumber-json-testng-report.json"
-    testName: "RunAPITest"
+    testName: "TessWebsite-smoke-test"
 
 phases:
   install:
