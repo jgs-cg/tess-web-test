@@ -33,7 +33,7 @@ payload = {
                "cycleId" : cycleId,
                "requestedParser" : requestedParser,
                "jobUrl" : "CodeBuild",
-               "contactInitials" : contactInitials
+               "contactInitials" : contactInitials,
                "parseXml" : "false"
            }
 
