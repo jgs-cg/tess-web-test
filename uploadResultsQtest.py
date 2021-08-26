@@ -24,16 +24,17 @@ with open(filePath + "/" + fileName, "r") as read_file:
      data = read_file.read()
 
 print("File read is ", data)
-payload = {"result": data ,
-           "testCycleName": BuildNum,
-           "projectId": projectId,
-           "aut": aut,
-           "atmId" : atmId,
-           "cycleId" : cycleId,
-           "requestedParser" : requestedParser,
-           "jobUrl" : "jobUrl",
-           "contactInitials" : contactInitials,
-           "modulePath": env
+payload = {    
+               "result": data ,
+               "testCycleName": "BuildNum#" + BuildNum,
+               "projectId": projectId,
+               "aut": aut,
+                "atmId" : atmId,
+               "cycleId" : cycleId,
+               "requestedParser" : requestedParser,
+               "jobUrl" : "CodeBuild",
+               "contactInitials" : contactInitials
+               "parseXml" : "false"
            }
 
 headerInfo = {'Content-Type' : 'application/json'}
