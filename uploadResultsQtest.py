@@ -14,9 +14,13 @@ contactInitials = os.environ['contactInitials']
 env = os.environ['environment']
 url = "https://qtest.cguser.capgroup.com:4080/webhook/ad6396c2-c0ca-4123-860a-681f47b56af1"
 
+print("projectId is", projectId)
+print("aut is", aut)
+print("Filepath and name , filePath + "/" + fileName)
 with open(filePath + "/" + fileName, "r") as read_file:
      data = read_file.read()
 
+print("File read is ", data)
 payload = {"result": data ,
            "testCycleName": "",
            "projectId": projectId,
