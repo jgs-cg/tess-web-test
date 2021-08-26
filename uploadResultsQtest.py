@@ -26,7 +26,7 @@ with open(filePath + "/" + fileName, "r") as read_file:
 print("File read is ", data)
 payload = {    
                "result": data ,
-               "testCycleName": "BuildNum#" + BuildNum,
+               "testCycleName": "CodeBuildNum#" + BuildNum,
                "projectId": projectId,
                "aut": aut,
                 "atmId" : atmId,
