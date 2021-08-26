@@ -13,9 +13,8 @@ requestedParser =os.environ['requestedParser']
 contactInitials = os.environ['contactInitials']
 env = os.environ['environment']
 url = "https://qtest.cguser.capgroup.com:4080/webhook/ad6396c2-c0ca-4123-860a-681f47b56af1"
-BuildNum = os.environ['BuildNum']
+BuildNum = os.environ['CODEBUILD_BUILD_NUMBER']
 
-BuildNum = BuildNum.replace(" ","")
 
 print("BuildNum is", BuildNum)
 print("projectId is", projectId)
