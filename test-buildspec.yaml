@@ -6,7 +6,7 @@ env:
     environment: "DEV"
     contactInitials: "JGS"
     requestedParser: "Cucumber_V2"
-    cycleId: "182085"
+    cycleId: "182230"
     BuildNum: $CODEBUILD_BUILD_NUMBER
     atmId: "AA00001364"
     aut: "TESS"
