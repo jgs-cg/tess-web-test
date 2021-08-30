@@ -27,7 +27,7 @@ phases:
       - aws --version
       - wget https://releases.hashicorp.com/terraform/1.0.5/terraform_1.0.5_linux_amd64.zip
       #- yum -y install unzip
-      - unzip version
+      #- unzip version
       - unzip terraform_1.0.5_linux_amd64.zip
       - mv terraform /usr/local/bin/
       - terraform version
