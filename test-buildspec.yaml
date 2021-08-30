@@ -28,6 +28,7 @@ phases:
       - cdk --version
       - pip install --upgrade pip
       - pip install requests
+      - terraform --version
       
   build:
     commands:
