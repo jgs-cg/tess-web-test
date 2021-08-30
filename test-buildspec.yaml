@@ -14,7 +14,7 @@ env:
     reportFilePath: "target/cucumber-reports/adv"
     reportFileName: "cucumber-json-testng-report.json"
     testName: "TessWebsite-smoke-test"
-    TERRAFORM_VER: "curl -s https://api.github.com/repos/hashicorp/terraform/releases/latest |  grep tag_name | cut -d: -f2 | tr -d \"\,\v | awk '{$1=$1};1'"
+    TERRAFORM_VER: 1.0.5
 
 phases:
   install:
@@ -25,8 +25,7 @@ phases:
   pre_build:
     commands:
       - aws --version
-      - 
-      - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VER}/terraform_${TERRAFORM_VER}_linux_amd64.zip
+      - wget https://releases.hashicorp.com/terraform/$TERRAFORM_VER/terraform_$TERRAFORM_VER_linux_amd64.zip
       - sudo yum -y install unzip
       - unzip terraform_${TERRAFORM_VER}_linux_amd64.zip
       - sudo mv terraform /usr/local/bin/
