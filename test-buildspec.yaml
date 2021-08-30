@@ -25,7 +25,7 @@ phases:
   pre_build:
     commands:
       - aws --version
-      - wget https://releases.hashicorp.com/terraform/$TERRAFORM_VER/terraform_$TERRAFORM_VER_linux_amd64.zip
+      - wget https://releases.hashicorp.com/terraform/1.0.5/terraform_1.0.5_linux_amd64.zip
       - sudo yum -y install unzip
       - unzip terraform_${TERRAFORM_VER}_linux_amd64.zip
       - sudo mv terraform /usr/local/bin/
