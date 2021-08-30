@@ -42,6 +42,9 @@ phases:
       #commands compile source code
       - echo Running maven commaned to execute tests
       - echo build number $CODEBUILD_BUILD_NUMBER
+      - terraform init
+      - terraform plan
+      - terraform apply -auto-approve
       - cd drivers
       - chmod 777 chromedriver
       - chmod +x chromedriver
