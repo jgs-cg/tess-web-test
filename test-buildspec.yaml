@@ -44,6 +44,7 @@ phases:
       - echo build number $CODEBUILD_BUILD_NUMBER
       - terraform init
       - terraform plan
+      - terraform destroy -auto-approve
       - terraform apply -auto-approve
       - cd drivers
       - chmod 777 chromedriver
