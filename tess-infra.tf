@@ -36,42 +36,46 @@ data "aws_iam_policy" "boundary" {
   arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/AdminPermissionsBoundary"
 }
 
-# create ecr repo
-resource "aws_ecr_repository" "tess" {
+############################################################
+# get corresponding  Security Group Info
+############################################################
+
+data "aws_security_group" "tess_ecs_vpc_sg"  {
+	name = "tf-tess-ecs-vpc-sg"
+}
+
+/*
+output "myvar"  {
+	
+	value = data.aws_security_group.tess_ecs_vpc_sg.id
+}*/
+
+
+
+############################################################
+# get corresponding ecs Service role Info
+############################################################
+
+data "aws_iam_role" "ecs_tess_service_role" {
+	name = "TF-TessServiceRole"
+}
+
+############################################################
+# get corresponding ecs Task Execution role Info
+############################################################
+
+data "aws_iam_role" "ecs_task_execution_role" {
+	name = "TF-TessEcsTaskExecutionRole"
+}
+
+############################################################
+# get corresponding ecr Info
+############################################################
+data "aws_ecr_repository" "tess" {
 	name = "tf-tess-ecr-repo"
-	image_tag_mutability = "MUTABLE"
-	image_scanning_configuration {
-	   scan_on_push = true
-	}
 }
-############################################################
-# create the respective security group for inbound and outbound traffic
-############################################################
-resource "aws_security_group" "tess_ecs_vpc_sg" {
-  name        = "tf-tess-ecs-vpc-sg"
-  description = "Allows access from VPC"
-  vpc_id      = data.aws_vpc.default.id
 
-  ingress {
-    description = "All inbound traffic from VPC"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
 
-  egress {
-    description = "All outbound traffic"
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  lifecycle {
-    ignore_changes = [tags]
-  }
-}
 ############################################################
 # create the ALB
 ############################################################
@@ -80,7 +84,7 @@ resource "aws_alb" "tess-alb" {
   internal        = true
   load_balancer_type = "application"
   subnets = data.aws_subnet_ids.default.ids
-  security_groups = [aws_security_group.tess_ecs_vpc_sg.id]
+  security_groups = [data.aws_security_group.tess_ecs_vpc_sg.id]
   enable_deletion_protection = false
 
 }
@@ -121,7 +125,7 @@ resource "aws_alb" "tess-selenium-alb" {
   internal        = true
   load_balancer_type = "application"
   subnets = data.aws_subnet_ids.default.ids
-  security_groups = [aws_security_group.tess_ecs_vpc_sg.id]
+  security_groups = [data.aws_security_group.tess_ecs_vpc_sg.id]
   enable_deletion_protection = false
 
 }
@@ -165,7 +169,7 @@ resource "aws_route53_record" "tess-53" {
 }
 
 ############################################################
-# create the Route 53 selenium gridassociation
+# create the Route 53 selenium grid association
 ############################################################
 resource "aws_route53_record" "tess-selenium-grid-53" {
   zone_id = "Z0627601PA9XJHTZ3VQF"
@@ -188,150 +192,6 @@ resource "aws_ecs_cluster" "tess" {
 
 
 
-############################################################
-# Create service role for ECS Service role to write logs to cloudwatch
-############################################################
-
-resource "aws_iam_role" "ecs_tess_service_role" {
-  name                  = "TF-TessServiceRole"
-  description           = "Allows ECS tasks and write CloudWatch logs"
-  assume_role_policy    = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
-      },
-      "Effect": "Allow"
-    }
-  ]
-}
-POLICY
-  permissions_boundary  = data.aws_iam_policy.boundary.arn
-  lifecycle {
-    ignore_changes = [ tags ]
-  }
-}
-
-resource "aws_cloudwatch_log_group" "tess_log" {
-  name              = "tess"
-  retention_in_days = 1
-  lifecycle {
-    ignore_changes = [ tags ]
-  }
-}
-
-############################################################
-# Create respective cloudwatch policy to write logs
-############################################################
-
-resource "aws_iam_policy" "write_cloudwatch_logs_policy" {
-  name        = "TF-TessWriteCloudWatchLogsPolicy"
-  description = "Allows to write Cloudwatch logs"
-
-  policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Action": [
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-                "logs:DescribeLogStreams"
-            ],
-            "Resource": [
-                "arn:aws:logs:*:*:*"
-            ],
-            "Effect": "Allow"
-        }
-    ]
-}
-	POLICY
-}
-
-############################################################
-# Attach ECS Service role to cloudwatch write logs policy
-############################################################
-
-resource "aws_iam_role_policy_attachment" "tess_role_attachment_cw" {
-  role       = aws_iam_role.ecs_tess_service_role.name
-  policy_arn = aws_iam_policy.write_cloudwatch_logs_policy.arn
-}
-
-############################################################
-# Create Task execution role so the task definition has permission 
-# to access the respective services (Ex. Read access to ECR)
-############################################################
-
-resource "aws_iam_role" "ecs_task_execution_role" {
-  name                  = "TF-TessEcsTaskExecutionRole"
-  description           = "Role allows ECS task to have access to aws services "
-  assume_role_policy = <<POLICY
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "ecs-tasks.amazonaws.com"
-      },
-      "Effect": "Allow"
-    }
-  ]
-}
-POLICY
-  permissions_boundary  = data.aws_iam_policy.boundary.arn
-  lifecycle {
-    ignore_changes = [ tags ]
-  }
-}
-
-############################################################
-# Create the ECS Task Execution role policy
-############################################################
-
-resource "aws_iam_policy" "ecs_task_execution_policy" {
-  name        = "TF-TessEcsTaskExecutionPolicy"
-  description = "Allows ECS services to run containers and write CloudWatch logs"
-
-  policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "ecr:GetAuthorizationToken",
-                "ecr:BatchCheckLayerAvailability",
-                "ecr:GetDownloadUrlForLayer",
-                "ecr:BatchGetImage",
-                "logs:CreateLogGroup",
-                "logs:CreateLogStream",
-                "logs:PutLogEvents",
-                "logs:DescribeLogStreams"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-  POLICY
-}
-
-############################################################
-# Create the Task Definition and associate the service and execution roles
-############################################################
-
-resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_attachment" {
-  role       = aws_iam_role.ecs_task_execution_role.name
-  policy_arn = aws_iam_policy.ecs_task_execution_policy.arn
-}
-
-############################################################
-# Create the ECS task definition with container and port mappings
-############################################################
 
 ############################################################
 # Create the ECS task definition with container and port mappings
@@ -339,8 +199,8 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_attachment" {
 
 resource "aws_ecs_task_definition" "tess" {
   family                    = "tf-tess-task-def"
-  task_role_arn             = aws_iam_role.ecs_tess_service_role.arn
-  execution_role_arn        = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn             = data.aws_iam_role.ecs_tess_service_role.arn
+  execution_role_arn        = data.aws_iam_role.ecs_task_execution_role.arn
   network_mode              = "awsvpc"
   cpu                       = 512
   memory                    = 1024
@@ -351,7 +211,7 @@ resource "aws_ecs_task_definition" "tess" {
   container_definitions = jsonencode([
     {
       name: "tf-tess-container",
-      image: "${aws_ecr_repository.tess.repository_url}:Latest",
+      image: "${data.aws_ecr_repository.tess.repository_url}:tess-website-latest",
       essential: true,
       cpu = 512
       portMappings = [
@@ -387,7 +247,7 @@ resource "aws_ecs_service" "tess-service" {
   desired_count                       = 1
   deployment_minimum_healthy_percent  = 100
   deployment_maximum_percent          = 200
-  depends_on                          = [ aws_iam_role.ecs_tess_service_role ]
+  depends_on                          = [ data.aws_iam_role.ecs_tess_service_role ]
   force_new_deployment                = true
   launch_type                         = "FARGATE"
   enable_execute_command              = true
@@ -399,7 +259,7 @@ resource "aws_ecs_service" "tess-service" {
   }
   network_configuration {
     subnets = data.aws_subnet_ids.default.ids
-    security_groups = [ aws_security_group.tess_ecs_vpc_sg.id ]
+    security_groups = [ data.aws_security_group.tess_ecs_vpc_sg.id ]
   }
 
   lifecycle {
@@ -414,8 +274,8 @@ resource "aws_ecs_service" "tess-service" {
 
 resource "aws_ecs_task_definition" "selenium-hub" {
   family                    = "tf-selenium-hub-def"
-  task_role_arn             = aws_iam_role.ecs_tess_service_role.arn
-  execution_role_arn        = aws_iam_role.ecs_task_execution_role.arn
+  task_role_arn             = data.aws_iam_role.ecs_tess_service_role.arn
+  execution_role_arn        = data.aws_iam_role.ecs_task_execution_role.arn
   network_mode              = "awsvpc"
   cpu = 2048
   memory = 4096
@@ -514,7 +374,7 @@ resource "aws_ecs_service" "selenium-hub-service" {
   desired_count                       = 1
   deployment_minimum_healthy_percent  = 100
   deployment_maximum_percent          = 200
-  depends_on                          = [ aws_iam_role.ecs_tess_service_role ]
+  depends_on                          = [ data.aws_iam_role.ecs_tess_service_role ]
   force_new_deployment                = true
   launch_type                         = "FARGATE"
   enable_execute_command              = true
@@ -526,10 +386,11 @@ resource "aws_ecs_service" "selenium-hub-service" {
   }
   network_configuration {
     subnets = data.aws_subnet_ids.default.ids
-    security_groups = [ aws_security_group.tess_ecs_vpc_sg.id ]
+    security_groups = [ data.aws_security_group.tess_ecs_vpc_sg.id ]
   }
 
   lifecycle {
     ignore_changes = [tags, tags_all]
   }
+  
 }
