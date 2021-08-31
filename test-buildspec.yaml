@@ -67,6 +67,7 @@ reports:
 artifacts:
     files:
       - target/cucumber-reports/adv/cucumber-json-testng-report.json
+      - tess-infra.tfstate
   #files: imagedefinitions.json
    # - '**/*'
  # base-directory: 'dist'
