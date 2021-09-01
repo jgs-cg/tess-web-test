@@ -44,10 +44,10 @@ phases:
       - chmod +x chromedriver
       - cd ..
       - echo Build started on `date` 
+      - aws s3 cp  s3://tess-web-artifacts/terraform/terraform.tfstate .
       - terraform init
       - terraform plan
      # - terraform apply -auto-approve
-      - aws s3 cp  s3://tess-web-artifacts/terraform/terraform.tfstate .
      # - docker-compose -f  docker-compose.yml up -d
       - mvn clean test -Dspring.profiles.active=DEV
       #- docker-compose -f  docker-compose.yml down -d
