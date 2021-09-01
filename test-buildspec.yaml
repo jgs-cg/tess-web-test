@@ -68,7 +68,6 @@ reports:
 artifacts:
     files:
       - target/cucumber-reports/adv/cucumber-json-testng-report.json
-      - terraform.tfstate
   #files: imagedefinitions.json
    # - '**/*'
  # base-directory: 'dist'
