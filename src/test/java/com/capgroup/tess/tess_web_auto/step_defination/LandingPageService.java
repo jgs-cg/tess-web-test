@@ -82,7 +82,7 @@ public class LandingPageService implements En {
                 ArrayList<String> windowTabs = new ArrayList<String> (driver.getWindowHandles());
                 logger.info("Number of windows tables equals : " + windowTabs.size());
                 driver.switchTo().window(windowTabs.get(1));
-                //landingPage.getConfluenceLink();
+                landingPage.getConfluenceLink();
             }
             else
                 expectedURL = baseUrl+  expectedURL;
