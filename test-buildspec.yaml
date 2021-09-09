@@ -45,12 +45,12 @@ phases:
       - cd ..
       - echo Build started on `date` 
       - aws s3 cp  s3://tess-web-artifacts/terraform/terraform.tfstate .
-      - terraform init
-      - terraform plan
-      - terraform apply -auto-approve
+     # - terraform apply -auto-approve
      # - docker-compose -f  docker-compose.yml up -d
       - mvn clean test -Dspring.profiles.active=DEV
       #- docker-compose -f  docker-compose.yml down -d
+      - terraform init
+      - terraform plan
       - terraform destroy -auto-approve
       - aws s3 cp terraform.tfstate s3://tess-web-artifacts/terraform/terraform.tfstate.afterdestroy
            
