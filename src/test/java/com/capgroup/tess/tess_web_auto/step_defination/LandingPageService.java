@@ -75,7 +75,7 @@ public class LandingPageService implements En {
         });
 
         Then("^I validate the tile nagivates me to the correct confluence \"([^\"]*)\" page url \"([^\"]*)\"$", ( String onConfluence,String expectedURL) -> {
-            logger.info("Executing the Then Expression with expectedURL" + expectedURL);
+            logger.info("Executing the Then Expression with expected URL: " + expectedURL);
             String actualURL;
             if(onConfluence.equalsIgnoreCase("true"))
             {
