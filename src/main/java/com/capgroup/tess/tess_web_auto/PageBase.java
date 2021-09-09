@@ -37,7 +37,7 @@ public class PageBase {
 
     public void waitTillPageHasBeenFullyLoaded() {
         ExpectedCondition<Boolean> pageLoadCondition = driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
-        WebDriverWait wait = new WebDriverWait(driver, 300);
+        WebDriverWait wait = new WebDriverWait(driver, 15);
         wait.until(pageLoadCondition);
 
         logger.info("Page Loaded...");
