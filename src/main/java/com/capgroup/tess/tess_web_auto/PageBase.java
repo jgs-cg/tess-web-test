@@ -60,7 +60,7 @@ public class PageBase {
     public String getCurrentUrl()
     {
         waitTillPageHasBeenFullyLoaded();
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         return driver.getCurrentUrl();
     }
 
