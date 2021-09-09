@@ -45,20 +45,20 @@ phases:
       - cd ..
       - echo Build started on `date` 
       - aws s3 cp  s3://tess-web-artifacts/terraform/terraform.tfstate .
-     # - terraform init
-     # - terraform plan
-     # - terraform apply -auto-approve
+      - terraform init
+      - terraform plan
+      - terraform apply -auto-approve
      # - docker-compose -f  docker-compose.yml up -d
       - mvn clean test -Dspring.profiles.active=DEV
       #- docker-compose -f  docker-compose.yml down -d
-     # - terraform destroy -auto-approve
-    #  - aws s3 cp terraform.tfstate s3://tess-web-artifacts/terraform/terraform.tfstate.afterdestroy
+      - terraform destroy -auto-approve
+      - aws s3 cp terraform.tfstate s3://tess-web-artifacts/terraform/terraform.tfstate.afterdestroy
            
   post_build:
     on-failure: CONTINUE
     commands:
       - echo Run Python script to upload report to qTest
-     # - python uploadResultsQtest.py         
+      - python uploadResultsQtest.py         
       
 reports:   
   tessweb-ReportGroup: #Cucumber reports from json plugin
