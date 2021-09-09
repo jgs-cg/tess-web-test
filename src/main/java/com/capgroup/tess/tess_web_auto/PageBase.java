@@ -59,7 +59,7 @@ public class PageBase {
 
     public String getCurrentUrl()
     {
-        waitTillPageHasBeenFullyLoaded();
+        //waitTillPageHasBeenFullyLoaded();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         return driver.getCurrentUrl();
     }
