@@ -44,17 +44,17 @@ public class PageBase {
     }
 
     public WebElement waitWebElementToBeVisible(WebElement element) {
-        return (new WebDriverWait(driver, 60)).until(ExpectedConditions.visibilityOf(element));
+        return (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOf(element));
     }
 
     public List<WebElement> waitListWebElementsToBeVisible(List<WebElement> elements) {
 
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.visibilityOfAllElements(elements));
+        return (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfAllElements(elements));
     }
 
     public WebElement waitWebElementToBeClickable(WebElement element) {
 
-        return (new WebDriverWait(driver, 30)).until(ExpectedConditions.elementToBeClickable(element));
+        return (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public String getCurrentUrl()
